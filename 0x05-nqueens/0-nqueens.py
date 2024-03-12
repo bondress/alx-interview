@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""This pyton program solves the Nqueens problem.
+"""
+The N queens puzzle is the challenge of placing N non-attacking
+queens on an N×N chessboard. This program solves the N queens problem.
 """
 
 
@@ -12,12 +14,12 @@ def print_board(board):
         board - list of list with length sys.argv[1]
     """
     new_list = []
-    for n, row in enumerate(board):
+    for i, row in enumerate(board):
         value = []
-        for o, colmn in enumerate(row):
-            if colmn == 1:
-                value.append(n)
-                value.append(o)
+        for j, col in enumerate(row):
+            if col == 1:
+                value.append(i)
+                value.append(j)
         new_list.append(value)
 
     print(new_list)
@@ -33,29 +35,29 @@ def isSafe(board, row, col, number):
     Return: True of False
     """
 
-    for n in range(col):
-        if board[row][n] == 1:
+    for i in range(col):
+        if board[row][i] == 1:
             return False
 
-    for n, o in zip(range(row, -1, -1), range(col, -1, -1)):
-        if board[n][o] == 1:
+    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+        if board[i][j] == 1:
             return False
 
-    for n, o in zip(range(row, number, 1), range(col, -1, -1)):
-        if board[n][o] == 1:
+    for i, j in zip(range(row, number, 1), range(col, -1, -1)):
+        if board[i][j] == 1:
             return False
 
     return True
 
 
 def solveNQUtil(board, col, number):
-    """Find the possibilities
+    """Auxiliar method to find the posibilities of answer
     Args:
         board - Board to resolve
         col - Number of col
         number - size of the board
     Returns:
-        All the possibilities to solve the problem
+        All the posibilites to solve the problem
     """
 
     if (col == number):
@@ -64,19 +66,19 @@ def solveNQUtil(board, col, number):
     res = False
     for i in range(number):
 
-        if (isSafe(board, n, colmn, number)):
+        if (isSafe(board, i, col, number)):
 
-            board[n][colmn] = 1
+            board[i][col] = 1
 
-            res = solveNQUtil(board, colmn + 1, number) or res
+            res = solveNQUtil(board, col + 1, number) or res
 
-            board[n][colmn] = 0
+            board[i][col] = 0
 
     return res
 
 
 def solve(number):
-    """ Find all possibilities if exists
+    """Find all the possibilities if they exist
     Args:
         number - size of the board
     """
@@ -89,7 +91,8 @@ def solve(number):
 
 
 def validate(args):
-    """Validate the input data to verify if the answer size is possible
+    """Validate the input data to verify if the size to
+        answer is posible
     Args:
         args - sys.argv
     """
